@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 
 public class InputFileService {
-    public static ArrayList<Line> uploadEmployeeFromFile(Path inputFilePath) {
+    public static ArrayList<Line> uploadFromFile(Path inputFilePath) {
        ArrayList<Line> arrayList = new ArrayList<>();
         try (BufferedReader reader = Files.newBufferedReader(inputFilePath)) {
             String line;
