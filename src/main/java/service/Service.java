@@ -1,5 +1,6 @@
 package service;
 
+import innerJoin.*;
 import instance.Line;
 
 import java.nio.file.Path;
@@ -8,27 +9,22 @@ import java.util.*;
 
 public class Service {
     public static void main(String[] args) {
-        if (args.length > 1) {
+        if (args.length > 4) {
             ArrayList<Line> firstArrayList = InputFileService.uploadFromFile(Path.of(args[0]));
             ArrayList<Line> secondArrayList = InputFileService.uploadFromFile(Path.of(args[1]));
 
-            System.out.println("Исходный первый файл:");
-            OutputService.printList(firstArrayList);
-            System.out.println("\nИсходный второй файл:");
-            OutputService.printList(secondArrayList);
-
-            System.out.println("\nРезультаты Inner Join c помощью ArrayList:");
-            OutputService.printList(InnerJoinService.innerJoin(firstArrayList, secondArrayList));
+            InnerJoin<ArrayList<Line>> arrayListInnerJoin = new ArrayListInnerJoin();
+            OutputFileService.writeResultToFile(arrayListInnerJoin.innerJoin(firstArrayList, secondArrayList), Path.of(args[2]));
 
             LinkedList<Line> firstLinkedList = TransferService.transferToLinkedList(firstArrayList);
             LinkedList<Line> secondLinkedList = TransferService.transferToLinkedList(secondArrayList);
-            System.out.println("\nРезультаты Inner Join c помощью отсортированного ArrayList:");
-            OutputService.printList(InnerJoinService.innerJoin(firstLinkedList, secondLinkedList));
+            InnerJoin<LinkedList<Line>> linkedListInnerJoin = new LinkedListInnerJoin();
+            OutputFileService.writeResultToFile(linkedListInnerJoin.innerJoin(firstLinkedList, secondLinkedList), Path.of(args[3]));
 
-            HashMap<Integer, Line> firstHashMap = TransferService.transferToHashMap(firstLinkedList);
-            HashMap<Integer, Line> secondHashMap = TransferService.transferToHashMap(secondLinkedList);
-            System.out.println("\nРезультаты Inner Join c помощью HashMap:");
-            OutputService.printMap(InnerJoinService.innerJoin(firstHashMap, secondHashMap));
+            HashMap<Integer, ArrayList<Line>> firstHashMap = TransferService.transferToHashMap(firstLinkedList);
+            HashMap<Integer, ArrayList<Line>> secondHashMap = TransferService.transferToHashMap(secondLinkedList);
+            InnerJoin<HashMap<Integer, ArrayList<Line>>> hashMapInnerJoin = new HashMapInnerJoin();
+            OutputFileService.writeResultToFile(hashMapInnerJoin.innerJoin(firstHashMap, secondHashMap), Path.of(args[4]));
         } else {
             System.out.println("Внимание! Укажите путь к обоим файлам во входных аргументах(args[0] и args[1])");
         }
