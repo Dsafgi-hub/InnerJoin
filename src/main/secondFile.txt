@@ -1,11 +1,15 @@
 43, Alfa Romeo
 14, БелАЗ
 174, Renault
+1, Chinkara
 77, Mercedes Benz
 19, Daewoo
 36, РАФ
+1, Force Motors
+1, Mahindra
 31, SEAT
 77, BMW
 14, МАЗ
 5, LADA
 77, Volkswagen
+174, Peugeot

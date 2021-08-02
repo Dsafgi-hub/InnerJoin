@@ -36,18 +36,31 @@ public class LinkedListInnerJoin implements InnerJoin<LinkedList<Line>> {
                                 } else {
                                     secondIter.previous();
                                 }
-                            } else {
-                                firstIter.previous();
-                                break;
                             }
+
                             firstIter.previous();
-                            while (secondIter.previous().getId().equals(lastId)) {
-                                secondIter.previous();
+
+                            while (secondIter.previous().getId().equals(lastId) && secondIter.hasPrevious()) {
+                                secondIter.next();
+                                if (secondIter.hasPrevious()) {
+                                    secondIter.previous();
+                                } else {
+                                    break;
+                                }
                             }
+
                             break;
                         } else {
                             firstIter.previous();
                         }
+                    } else {
+                        if (secondIter.hasNext()) {
+                            if (secondIter.next().getId().equals(lastId)) {
+                                secondIter.previous();
+                                continue;
+                            }
+                        }
+                        break;
                     }
                 }
             }
